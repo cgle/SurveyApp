@@ -256,6 +256,9 @@
     <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
+    <None Include="Properties\PublishProfiles\asurveyapp %282%29.pubxml" />
+    <None Include="Properties\PublishProfiles\asurveyapp.pubxml" />
+    <None Include="Properties\PublishProfiles\thesurveyapp.pubxml" />
     <None Include="Scripts\jquery-2.0.3.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
