@@ -1,0 +1,68 @@
+﻿@model IEnumerable<SurveyApp.Models.Response>
+
+@{
+    ViewBag.Title = "Responses";
+}
+
+<h2>Responses page</h2>
+<br />
+
+
+<div class="row">
+
+    <div class="col-md-3" style="max-height:320px !important; overflow-y:scroll;" >
+        <table class="nav bs-sidenav panel panel-default table table-striped">
+            <tr>
+                <th>Surveys available:
+                </th>
+                <th></th>
+            </tr>
+
+                @foreach (var s in ViewBag.surveys)
+                {
+                    <tr>
+                    <td>@s.Title
+                    </td>
+                    <td>
+                        <button class="btn btn-primary btn-sm" type="button" onclick="location.href='/response/take/?surveyid=@s.SurveyId'">Take</button>
+                    </td>
+                    </tr>
+                }
+
+
+            
+        </table>
+    </div>
+    <div class="col-md-9" role="main">
+        <div class="panel panel-default">
+            <table class="table table-default">
+                <tr>
+                    <th>
+                    @Html.DisplayNameFor(model => model.Question.Survey.Title)
+                    <th>
+                        @Html.DisplayNameFor(model => model.UniqueId)
+                    </th>
+                    <th></th>
+                </tr>
+                @{ var i = "";}
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Question.Survey.Title)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.UniqueId)
+                        </td>
+                        <td>
+                            @Html.ActionLink("Edit", "Edit", new { uniqueid = item.UniqueId }) |
+                    @Html.ActionLink("Summary", "Summary", new { uniqueid = item.UniqueId }) |
+                    @Html.ActionLink("Delete", "Delete", new { uniqueid = item.UniqueId })
+                        </td>
+                    </tr>
+                }
+
+            </table>
+        </div>
+    </div>
+</div>

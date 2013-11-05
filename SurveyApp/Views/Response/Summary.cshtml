@@ -1,0 +1,24 @@
+﻿@model IEnumerable<SurveyApp.Models.Response>
+
+@{
+    ViewBag.Title = "Summary";
+}
+
+<h2>Summary for survey: @ViewBag.uniqueid</h2>
+<br />
+<div id="summary" class="summary"> 
+@{var counter = 1;}
+@foreach (var r in Model)
+{   
+    <p>
+        <b>Question @counter: @r.Question.Text</b>
+        @{if (r.Value == 0){ <p>Response: @r.Text</p> } else { <p>Response: @r.Value</p> } }
+        
+    </p>
+    counter++;
+}
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { uniqueid=ViewBag.uniqueid}) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

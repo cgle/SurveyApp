@@ -1,0 +1,47 @@
+﻿@model IEnumerable<SurveyApp.Models.Survey>
+
+@{
+    ViewBag.Title = "Survey admin";
+}
+
+<h2>Survey admin</h2>
+<br />
+
+<p>
+    <button class="btn btn-success" type="button" onclick="location.href='/survey/create'">Create new survey</button>    
+</p>
+<div class="row">
+<div class="col-md-9">
+    <table class="table table-default panel panel-default">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+            <th># of questions
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+
+                <td>
+                    @item.Questions.Count()
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.SurveyId }) |
+            @Html.ActionLink("Details", "Details", new { id = item.SurveyId }) |
+            @Html.ActionLink("Summary", "Summary", new { id = item.SurveyId }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.SurveyId }) |
+            @Html.ActionLink("Add Question", "Create", "Question", new { surveyid = item.SurveyId }, null)
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>
+</div>

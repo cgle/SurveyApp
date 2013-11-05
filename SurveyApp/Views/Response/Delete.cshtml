@@ -1,0 +1,17 @@
+﻿@model SurveyApp.Models.Response
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+<br />
+
+<h3>Are you sure you want to delete this response?</h3>
+
+@using (Html.BeginForm()) {
+    <p>
+        <input type="submit" value="Delete" class="btn btn-danger"/> |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+}

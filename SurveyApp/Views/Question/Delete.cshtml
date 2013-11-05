@@ -1,0 +1,16 @@
+﻿@model SurveyApp.Models.Question
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+<br />
+<h3>Are you sure you want to delete this question?</h3>
+
+@using (Html.BeginForm()) {
+    <p>
+        <input type="submit" value="Delete" class="btn btn-danger" /> |
+        @Html.ActionLink("Back to List", "Details", "Survey", new { id = Model.Survey.SurveyId }, null)
+    </p>
+}

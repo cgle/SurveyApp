@@ -1,0 +1,42 @@
+﻿@model SurveyApp.Models.LoginModel
+
+@{
+    ViewBag.Title = "Log in";
+}
+
+<section id="loginForm">
+<h2>Use a local account to log in.</h2>
+    <br />
+@using (Html.BeginForm(new { ReturnUrl = ViewBag.ReturnUrl })) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    <table>
+            <tr>
+                <td>@Html.LabelFor(m => m.UserName)&nbsp;</td>
+                <td>@Html.TextBoxFor(m => m.UserName)&nbsp;
+                @Html.ValidationMessageFor(m => m.UserName)</td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(m => m.Password)&nbsp;</td>
+                <td>@Html.PasswordFor(m => m.Password)&nbsp;
+                @Html.ValidationMessageFor(m => m.Password)</td>
+            </tr>
+            <tr>
+                <td>@Html.CheckBoxFor(m => m.RememberMe)</td>
+                <td>@Html.LabelFor(m => m.RememberMe, new { @class = "checkbox" })</td>
+            </tr>
+    </table>
+        <input type="submit" class="btn btn-primary" value="Log in" />
+        <a href="/account/register" class="btn btn-warning">Register</a>
+    <br />
+}
+</section>
+
+<section class="social" id="socialLoginForm">
+    <h2>Use another service to log in.</h2>
+    @Html.Action("ExternalLoginsList", new { ReturnUrl = ViewBag.ReturnUrl })
+</section>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

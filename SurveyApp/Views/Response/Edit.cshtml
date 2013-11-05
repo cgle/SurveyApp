@@ -1,0 +1,45 @@
+﻿@model IEnumerable<SurveyApp.Models.Response>
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit survey: @ViewBag.uniqueid</h2>
+<br />
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+        foreach (var r in Model)
+        {
+            <p><b>@r.Question.Text</b></p>
+            if (r.Question.options == 0) 
+            {
+                { <input type="text" name="question_@r.QuestionId" id="question_@r.QuestionId" value="@r.Text"/> }
+            }
+            else
+            {
+                for (int i = 1; i <= r.Question.options; i++){
+                if (r.Value == i)
+                {
+                    <input style="width:20px; text-align:left;" type="radio" name="question_@r.QuestionId" id="question_@r.QuestionId" value="@i" checked="checked" /> @:&nbsp;&nbsp;&nbsp;
+                }
+                else
+                {
+                    <input style="width:20px; text-align:left;" type="radio" name="question_@r.QuestionId" id="question_@r.QuestionId" value="@i" /> @:&nbsp;&nbsp;&nbsp;
+                }
+                }
+            }
+            <br />
+    <br />
+        }
+        <p>
+            <input type="submit" class="btn btn-primary" value="Save" />
+        </p>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

@@ -1,0 +1,54 @@
+﻿@model Dictionary<string,List<SurveyApp.Models.Response>>
+
+@{
+    ViewBag.Title = "Summary";
+}
+
+<h2>Summary for survey: @ViewBag.survey</h2>
+<br />
+
+<table class="table table-nonfluid panel panel-default">
+<tr>
+    <th>
+        Responder
+    </th>
+    <th>
+        Unique Id
+    </th>
+    @{var counter = 1;}
+    @foreach (var q in ViewBag.Questions)
+    {
+        <th>
+            Question @counter
+        </th>
+        counter++;
+    }
+</tr>
+
+@foreach (var pack in Model) 
+{
+    <tr>
+        <td>
+            @ViewBag.Responders[pack.Key]
+        </td>
+        <td>
+            @pack.Key
+        </td>
+        @foreach (var r in pack.Value)
+        {
+            if (r.Question.options == 0) 
+            {
+                <td>
+                    @r.Text
+                </td>
+            }
+            else 
+            {
+                <td>
+                    @r.Value
+                </td>
+            }
+        }
+    </tr>    
+}
+</table>

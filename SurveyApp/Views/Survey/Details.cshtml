@@ -1,0 +1,30 @@
+﻿@model SurveyApp.Models.Survey
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+<br />
+<fieldset>
+
+    <div class="display-label">
+         <b>@Html.DisplayNameFor(model => model.Title):</b> @Html.DisplayFor(model => model.Title)
+    </div>
+    <div class="display-field">
+        @{var counter = 1;}
+        @foreach (var q in ViewBag.Questions)
+        {
+            <div><b>Question @counter:</b> @q.Text &nbsp;&nbsp;&nbsp;
+            @Html.ActionLink("Edit", "Edit", "Question", new { id=q.QuestionId }, null) |
+            @Html.ActionLink("Delete", "Delete", "Question", new { id=q.QuestionId },null)
+            </div>
+            counter++;
+        }
+    </div>
+
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.SurveyId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

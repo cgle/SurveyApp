@@ -1,0 +1,45 @@
+﻿@model IEnumerable<SurveyApp.Models.Response>
+
+@{
+    ViewBag.Title = "Take a survey";
+}
+
+<h2>Response: @ViewBag.Survey.Title</h2>
+<br />
+
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true)
+    <form>
+        <div id="survey">
+            @foreach (var question in ViewBag.Questions)
+            {
+                <p><b>@question.Text</b></p>
+                if (@question.options == 0)
+                { <input type="text" name="question_@question.QuestionId" id="question_@question.QuestionId" /> }
+                else
+                {
+                    for (int i = 1; i <= @question.options; i++)
+                    {
+                @i <input style="width:20px; text-align:left;" type="radio" name="question_@question.QuestionId" id="question_@question.QuestionId" value="@i" /> @:&nbsp;&nbsp;&nbsp;
+                    
+                    }
+                }
+                <br />
+            }
+
+        </div>
+        <p>
+            <input type="submit" value="Take" />
+        </p>
+    </form>
+}
+
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

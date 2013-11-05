@@ -1,0 +1,47 @@
+﻿@model SurveyApp.Models.Question
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create new question</h2>
+<br />
+<p class="jumbotron" style="font-size:medium; padding:17px">
+    Note: Options value will determine the type of this question in your survey. Value 0 means text question. You can choose value larger than 1 
+    to specifize how many options your question will have.
+</p>
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Text)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Text)
+            @Html.ValidationMessageFor(model => model.Text)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.options)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.options)
+            @Html.ValidationMessageFor(model => model.options)
+        </div>
+        <br />
+        <p>
+            <input type="submit" class="btn btn-primary" value="Create" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index", "Survey")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
