@@ -12,6 +12,7 @@ namespace SurveyApp.Models
         public DbSet<Question> Questions { get; set; }
         public DbSet<Response> Responses { get; set; }
         public DbSet<Survey> Surveys { get; set; }
+        public SurveyEntities() : base("DefaultConnection")
     }
 
 }
