@@ -32,7 +32,7 @@
                         @Html.DisplayFor(modelItem => item.UniqueId)
                     </td>
                     <td>
-                        <button class="btn btn-success btn-sm" onclick="location.href='/report/details?surveyid=@item.UniqueId'">View report</button>
+                        <button class="btn btn-success btn-sm" onclick="location.href='/report/details?uniqueid=@item.UniqueId&surveyid=@item.Question.Survey.SurveyId'">View report</button>
                     </td>
                 </tr>
             }

@@ -33,10 +33,30 @@ namespace SurveyApp.Controllers
             return View(responses);
         }
 
-        public ActionResult Details(string uniqueid)
+        public ActionResult Details(string uniqueid, int surveyid)
         {
+            var responses = db.Responses.Include(q => q.Question).Include(s => s.Question.Survey).Include(u => u.User).Where(s => s.Question.SurveyId == surveyid).ToList();
+            //Dictionary<string, List<Response>> response_dict = new Dictionary<string, List<Response>>();
+            Dictionary<string, List<List<Object>>> json_dict = new Dictionary<string, List<List<object>>>();
+            foreach (var r in responses)
+            {
+                if (!json_dict.Keys.Contains(r.UniqueId))
+                {
+                    //response_dict.Add(r.UniqueId, new List<Response>());
+                    json_dict.Add(r.UniqueId, new List<List<object>>());
+                }
+                //response_dict[r.UniqueId].Add(r);
+                json_dict[r.UniqueId].Add(new List<object>(new object[] {r.Question.Text, r.Text, r.Value}));
+                
+            }
 
-            return View();
+            return View(json_dict);
         }
+
+        public float meanScore(List<int> scores)
+        {
+            return scores.Sum() / scores.Count();
+        }
+
     }
 }

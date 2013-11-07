@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 using SurveyApp.Migrations;
+=======
+﻿using SurveyApp.Migrations;
+>>>>>>> 2nd commit
 using SurveyApp.Models;
 using System;
 using System.Collections.Generic;

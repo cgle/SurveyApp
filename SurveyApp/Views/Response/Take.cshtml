@@ -14,7 +14,8 @@
         <div id="survey">
             @foreach (var question in ViewBag.Questions)
             {
-                <p><b>@question.Text</b></p>
+                <b>@question.Text</b>
+                <br />
                 if (@question.options == 0)
                 { <input type="text" name="question_@question.QuestionId" id="question_@question.QuestionId" /> }
                 else
@@ -29,8 +30,9 @@
             }
 
         </div>
+        <br />
         <p>
-            <input type="submit" value="Take" />
+            <input type="submit" value="Take" class="btn btn-primary"/>
         </p>
     </form>
 }

@@ -26,5 +26,7 @@
 </fieldset>
 <p>
     @Html.ActionLink("Edit", "Edit", new { id=Model.SurveyId }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Back to List", "Index") |
+    @Html.ActionLink("Add Question", "Create", "Question", new { surveyid = Model.SurveyId }, null)
+
 </p>

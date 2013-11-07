@@ -1,5 +1,20 @@
-﻿@{
-    ViewBag.Title = "Details";
+﻿@model Dictionary<string, List<List<object>>>
+
+@{
+    ViewBag.Title = "Report Details";
 }
 
-<h2>Details</h2>
+<h2>Report details</h2>
+<br />
+
+@foreach (var node in Model)
+{
+    <p>@node.Key</p>
+    foreach (var r in node.Value)
+    {
+        <p>@Html.Raw(Json.Encode(r))</p>
+    }
+    
+}
+
+

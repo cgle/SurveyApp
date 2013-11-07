@@ -29,4 +29,8 @@ namespace SurveyApp.Models
 
 
 
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 2nd commit
