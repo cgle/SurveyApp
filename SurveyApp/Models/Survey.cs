@@ -9,6 +9,7 @@ namespace SurveyApp.Models
     {
         public int SurveyId { get; set; }
         public string Title { get; set; }
+        public string Tips { get; set; }
         public int CreatorId { get; set; }
         public List<Question> Questions { get; set; }
     }

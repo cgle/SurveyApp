@@ -188,21 +188,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201311020507140_migraton2.cs" />
-    <Compile Include="Migrations\201311020507140_migraton2.Designer.cs">
-      <DependentUpon>201311020507140_migraton2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201311020631454_migration3.cs" />
-    <Compile Include="Migrations\201311020631454_migration3.Designer.cs">
-      <DependentUpon>201311020631454_migration3.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201311020644526_migration4.cs" />
-    <Compile Include="Migrations\201311020644526_migration4.Designer.cs">
-      <DependentUpon>201311020644526_migration4.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201311021722112_migration41.cs" />
-    <Compile Include="Migrations\201311021722112_migration41.Designer.cs">
-      <DependentUpon>201311021722112_migration41.cs</DependentUpon>
+    <Compile Include="Migrations\201311120906024_migration5.cs" />
+    <Compile Include="Migrations\201311120906024_migration5.Designer.cs">
+      <DependentUpon>201311120906024_migration5.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountModels.cs" />
@@ -360,17 +348,8 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201311020507140_migraton2.resx">
-      <DependentUpon>201311020507140_migraton2.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201311020631454_migration3.resx">
-      <DependentUpon>201311020631454_migration3.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201311020644526_migration4.resx">
-      <DependentUpon>201311020644526_migration4.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201311021722112_migration41.resx">
-      <DependentUpon>201311021722112_migration41.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201311120906024_migration5.resx">
+      <DependentUpon>201311120906024_migration5.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

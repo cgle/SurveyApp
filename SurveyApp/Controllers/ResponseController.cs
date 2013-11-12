@@ -108,7 +108,7 @@ namespace SurveyApp.Controllers
             {
                 return HttpNotFound();
             }
-
+            ViewBag.Survey = responses.First().Question.Survey;
         
             return View(responses);
         }
@@ -120,6 +120,7 @@ namespace SurveyApp.Controllers
         public ActionResult Edit(List<Response> responses, string uniqueid)
         {
             responses = db.Responses.Include(r => r.Question).Include(r => r.User).Include(r => r.Question.Survey).Where(id => id.UniqueId == uniqueid).ToList();
+            ViewBag.Survey = responses.First().Question.Survey;
             if (ModelState.IsValid)
             {
                 foreach (var response in responses)

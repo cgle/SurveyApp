@@ -1,20 +1,29 @@
-﻿@model Dictionary<string, List<List<object>>>
+﻿@model List<List<object>>
 
 @{
     ViewBag.Title = "Report Details";
 }
 
-<h2>Report details</h2>
-<br />
+@section script{
+    <script>
+        google.load("visualization", "1", { packages: ["corechart"] });
+        google.setOnLoadCallback(drawChart);
+        function drawChart() {
+            var data = google.visualization.arrayToDataTable(@Html.Raw(Json.Encode(Model)));
 
-@foreach (var node in Model)
-{
-    <p>@node.Key</p>
-    foreach (var r in node.Value)
-    {
-        <p>@Html.Raw(Json.Encode(r))</p>
-    }
-    
+            var options = {
+                title: 'Compare to other respondents',
+                vAxis: { title: 'Questions', titleTextStyle: { color: 'red' } }
+            };
+
+            var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
+            chart.draw(data, options);
+        }
+    </script>
 }
+
+<h2>Report details: @ViewBag.uniqueid</h2>
+<div id="chart_div" style="width: 900px; height: 750px; margin-top:20px;"></div>
+
 
 

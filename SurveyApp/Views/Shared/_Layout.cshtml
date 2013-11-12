@@ -12,8 +12,11 @@
     </style>
     @Scripts.Render("~/bundles/jquery")
     <script src="/Scripts/bootstrap.js"></script>
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    @RenderSection("script",false)
+
 </head>
 @RenderSection("active", required: false)
 

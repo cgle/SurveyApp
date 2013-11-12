@@ -35,27 +35,62 @@ namespace SurveyApp.Controllers
 
         public ActionResult Details(string uniqueid, int surveyid)
         {
+            ViewBag.uniqueid = uniqueid;
             var responses = db.Responses.Include(q => q.Question).Include(s => s.Question.Survey).Include(u => u.User).Where(s => s.Question.SurveyId == surveyid).ToList();
-            //Dictionary<string, List<Response>> response_dict = new Dictionary<string, List<Response>>();
-            Dictionary<string, List<List<Object>>> json_dict = new Dictionary<string, List<List<object>>>();
+            var responses_uniqueid = responses.Where(u => u.UniqueId == uniqueid);
+            Dictionary<string, List<int>> question_dict = new Dictionary<string, List<int>>();
+            Dictionary<string, List<object>> output_dict = new Dictionary<string, List<object>>();
+            output_dict.Add("Question", new List<object>(new object[] {uniqueid,"mean","median"}) );
+
             foreach (var r in responses)
             {
-                if (!json_dict.Keys.Contains(r.UniqueId))
+                if (r.Question.options != 0)
                 {
-                    //response_dict.Add(r.UniqueId, new List<Response>());
-                    json_dict.Add(r.UniqueId, new List<List<object>>());
+                    if (!question_dict.Keys.Contains(r.Question.Text))
+                    {
+                        question_dict.Add(r.Question.Text, new List<int>());
+                    }
+                    question_dict[r.Question.Text].Add(r.Value);
                 }
-                //response_dict[r.UniqueId].Add(r);
-                json_dict[r.UniqueId].Add(new List<object>(new object[] {r.Question.Text, r.Text, r.Value}));
+            }
+
+            foreach (var node in question_dict)
+            {
+                if (!output_dict.Keys.Contains(node.Key))
+                {
+                    output_dict.Add(node.Key, new List<object>(new object[] {responses_uniqueid.FirstOrDefault(q => q.Question.Text == node.Key).Value, double.Parse(meanScore(node.Value).ToString("#.##")), medianScore(node.Value)} ));
+                }
+
                 
             }
 
-            return View(json_dict);
+            var data = new List<List<object>>();
+            foreach (var item in output_dict)
+            {
+                var k = new List<object>();
+                k.Add(item.Key);
+                foreach (var i in item.Value) { k.Add(i); }
+                data.Add(k);
+
+            }
+
+            return View(data);
         }
 
-        public float meanScore(List<int> scores)
+
+
+        public double meanScore(List<int> scores)
         {
-            return scores.Sum() / scores.Count();
+            return scores.Sum()*1.0/ scores.Count();
+        }
+
+        public double medianScore(List<int> scores)
+        {
+            scores.Sort();
+            if (scores.Count()%2 == 0)
+            { return (scores[scores.Count() / 2-1] + scores[scores.Count() / 2]) / 2.0; }
+            else
+            { return scores[scores.Count() / 2-1]; }
         }
 
     }

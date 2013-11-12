@@ -1,8 +1,6 @@
-<<<<<<< HEAD
 using SurveyApp.Migrations;
-=======
 ﻿using SurveyApp.Migrations;
->>>>>>> 2nd commit
+
 using SurveyApp.Models;
 using System;
 using System.Collections.Generic;
@@ -24,8 +22,6 @@ namespace SurveyApp
     {
         protected void Application_Start()
         {
-            System.Data.Entity.Database.SetInitializer<SurveyEntities>(new CreateDatabaseIfNotExists<SurveyEntities>());
-            System.Data.Entity.Database.SetInitializer(new MigrateDatabaseToLatestVersion<SurveyEntities, Configuration>());
             AreaRegistration.RegisterAllAreas();
 
             WebApiConfig.Register(GlobalConfiguration.Configuration);

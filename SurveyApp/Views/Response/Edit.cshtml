@@ -6,39 +6,56 @@
 
 <h2>Edit survey: @ViewBag.uniqueid</h2>
 <br />
-@using (Html.BeginForm()) {
-    @Html.ValidationSummary(true)
-        foreach (var r in Model)
+<div class="row">
+    <div class="col-md-3">
+        @if (ViewBag.Survey.Tips != "" || ViewBag.Survey.Tips != null)
         {
-            <p><b>@r.Question.Text</b></p>
-            if (r.Question.options == 0) 
+            <div class="jumbotron" style="font-size: 15px; width:250px; padding: 15px; position: fixed">
+                @ViewBag.Survey.Tips
+            </div>
+        }
+    </div>
+    <div class="col-md-9">
+        @using (Html.BeginForm())
+        {
+            @Html.ValidationSummary(true)
+            foreach (var r in Model)
             {
-                { <input type="text" name="question_@r.QuestionId" id="question_@r.QuestionId" value="@r.Text"/> }
-            }
-            else
-            {
-                for (int i = 1; i <= r.Question.options; i++){
-                if (r.Value == i)
+            <b>@r.Question.Text</b>
+            <br />
+                if (r.Question.options == 0)
                 {
-                    <input style="width:20px; text-align:left;" type="radio" name="question_@r.QuestionId" id="question_@r.QuestionId" value="@i" checked="checked" /> @:&nbsp;&nbsp;&nbsp;
+                    { <input type="text" name="question_@r.QuestionId" id="question_@r.QuestionId" value="@r.Text"/> }
                 }
                 else
                 {
-                    <input style="width:20px; text-align:left;" type="radio" name="question_@r.QuestionId" id="question_@r.QuestionId" value="@i" /> @:&nbsp;&nbsp;&nbsp;
+                    for (int i = 1; i <= r.Question.options; i++)
+                    {
+                        if (r.Value == i)
+                        {
+            @i <input style="width:20px; text-align:left;" type="radio" name="question_@r.QuestionId" id="question_@r.QuestionId" value="@i" checked="checked" /> @:&nbsp;&nbsp;&nbsp;
                 }
+                        else
+                        {
+            @i <input style="width:20px; text-align:left;" type="radio" name="question_@r.QuestionId" id="question_@r.QuestionId" value="@i" /> @:&nbsp;&nbsp;&nbsp;
                 }
-            }
+                    }
+                }
             <br />
-    <br />
+            <br />
+            }
+            <p>
+                <input type="submit" class="btn btn-primary" value="Save" />
+            </p>
         }
-        <p>
-            <input type="submit" class="btn btn-primary" value="Save" />
-        </p>
-}
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
+        <div>
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    </div>
+
 </div>
+
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

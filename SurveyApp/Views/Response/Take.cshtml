@@ -7,39 +7,53 @@
 <h2>Response: @ViewBag.Survey.Title</h2>
 <br />
 
-@using (Html.BeginForm())
-{
-    @Html.ValidationSummary(true)
-    <form>
-        <div id="survey">
-            @foreach (var question in ViewBag.Questions)
-            {
-                <b>@question.Text</b>
-                <br />
-                if (@question.options == 0)
-                { <input type="text" name="question_@question.QuestionId" id="question_@question.QuestionId" /> }
-                else
-                {
-                    for (int i = 1; i <= @question.options; i++)
+<div class="row">
+    <div class="col-md-3">
+        @if (ViewBag.Survey.Tips != "" || ViewBag.Survey.Tips != null)
+        {
+            <div class="jumbotron" style="font-size: 15px; padding: 15px; width: 250px; position: fixed">
+                @ViewBag.Survey.Tips
+            </div>
+        }
+    </div>
+    <div class="col-md-9">
+        @using (Html.BeginForm())
+        {
+            @Html.ValidationSummary(true)
+            <form>
+                <div id="survey">
+                    @foreach (var question in ViewBag.Questions)
                     {
-                @i <input style="width:20px; text-align:left;" type="radio" name="question_@question.QuestionId" id="question_@question.QuestionId" value="@i" /> @:&nbsp;&nbsp;&nbsp;
+                        <b>@question.Text</b>
+                        <br />
+                        if (@question.options == 0)
+                        { <input type="text" name="question_@question.QuestionId" id="question_@question.QuestionId" /> }
+                        else
+                        {
+                            for (int i = 1; i <= @question.options; i++)
+                            {
+                        @i <input style="width:20px; text-align:left;" type="radio" name="question_@question.QuestionId" id="question_@question.QuestionId" value="@i" /> @:&nbsp;&nbsp;&nbsp;
                     
+                            }
+                        }
+                        <br />
+                        <br />
                     }
-                }
+
+                </div>
                 <br />
-            }
+                <p>
+                    <input type="submit" value="Take" class="btn btn-primary" />
+                </p>
+            </form>
+        }
 
+
+        <div>
+            @Html.ActionLink("Back to List", "Index")
         </div>
-        <br />
-        <p>
-            <input type="submit" value="Take" class="btn btn-primary"/>
-        </p>
-    </form>
-}
+    </div>
 
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
 </div>
 
 @section Scripts {
