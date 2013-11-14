@@ -5,13 +5,13 @@ namespace SurveyApp.Migrations
     using System.Data.Entity.Migrations.Infrastructure;
     using System.Resources;
     
-    public sealed partial class migration5 : IMigrationMetadata
+    public sealed partial class migration1 : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(migration5));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(migration1));
         
         string IMigrationMetadata.Id
         {
-            get { return "201311120906024_migration5"; }
+            get { return "201311141604500_migration1"; }
         }
         
         string IMigrationMetadata.Source
