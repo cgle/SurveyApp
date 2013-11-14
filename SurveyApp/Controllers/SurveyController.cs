@@ -186,6 +186,9 @@ namespace SurveyApp.Controllers
             if (ModelState.IsValid)
             {
                 survey.CreatorId = creatorid;
+                survey.Title = Request.Form["Title"];
+                survey.Tips = Request.Form["Tips"];
+                db.Surveys.Attach(survey);
                 db.Entry(survey).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
