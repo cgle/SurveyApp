@@ -1,54 +1,60 @@
-﻿@model Dictionary<string,List<SurveyApp.Models.Response>>
+﻿@model Dictionary<string, List<SurveyApp.Models.Response>>
 
 @{
     ViewBag.Title = "Summary";
 }
 
 <h2>Summary for survey: @ViewBag.survey</h2>
+<button class="btn btn-info" type="button" onclick="location.href='/survey/export/@ViewBag.surveyid'">Export data to CSV</button>
+<br />
 <br />
 
-<table class="table table-nonfluid panel panel-default">
-<tr>
-    <th>
-        Responder
-    </th>
-    <th>
-        Unique Id
-    </th>
-    @{var counter = 1;}
-    @foreach (var q in ViewBag.Questions)
-    {
-        <th>
-            Question @counter
-        </th>
-        counter++;
-    }
-</tr>
-
-@foreach (var pack in Model) 
-{
+<table class="table table-nonfluid panel panel-default" style="max-width: 900px">
     <tr>
-        <td>
-            @ViewBag.Responders[pack.Key]
-        </td>
-        <td>
-            @pack.Key
-        </td>
-        @foreach (var r in pack.Value)
+        <th>Responder
+        </th>
+        <th>Unique Id
+        </th>
+        @{var counter = 1;}
+        @foreach (var q in ViewBag.Questions)
         {
-            if (r.Question.options == 0) 
+            if (q.options == 0)
             {
+                <th>@q.Text</th>
+            }
+            else
+            {
+            <th>Q @counter
+            </th>
+                counter++;
+            }
+        }
+    </tr>
+
+    @foreach (var pack in Model)
+    {
+        <tr>
+            <td>
+                @ViewBag.Responders[pack.Key]
+            </td>
+            <td>
+                @pack.Key
+            </td>
+            @foreach (var r in pack.Value)
+            {
+                if (r.Question.options == 0)
+                {
                 <td>
                     @r.Text
                 </td>
-            }
-            else 
-            {
+                }
+                else
+                {
                 <td>
                     @r.Value
                 </td>
+                }
             }
-        }
-    </tr>    
-}
+        </tr>    
+    }
 </table>

@@ -39,8 +39,8 @@ namespace SurveyApp.Controllers
 
         //
         // GET: /Question/Create
-        [Authorize]
-        public ActionResult Create()
+        [AuthorizeSurvey]
+        public ActionResult Create(int surveyid = 0)
         {
             ViewBag.SurveyId = new SelectList(db.Surveys, "SurveyId", "Title");
             return View();
@@ -48,7 +48,7 @@ namespace SurveyApp.Controllers
 
         //
         // POST: /Question/Create
-        [Authorize]
+        [AuthorizeSurvey]
         [HttpPost]
         public ActionResult Create(Question question, int surveyid)
         {

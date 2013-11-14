@@ -87,10 +87,14 @@ namespace SurveyApp.Controllers
         public double medianScore(List<int> scores)
         {
             scores.Sort();
-            if (scores.Count()%2 == 0)
-            { return (scores[scores.Count() / 2-1] + scores[scores.Count() / 2]) / 2.0; }
+            if (scores.Count() == 1) { return scores[0]; }
             else
-            { return scores[scores.Count() / 2-1]; }
+            {
+                if (scores.Count() % 2 == 0)
+                { return (scores[scores.Count() / 2 - 1] + scores[scores.Count() / 2]) / 2.0; }
+                else
+                { return scores[scores.Count() / 2 - 1]; }
+            }
         }
 
     }

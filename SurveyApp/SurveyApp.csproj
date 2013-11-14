@@ -184,6 +184,8 @@
     <Compile Include="Controllers\ReportController.cs" />
     <Compile Include="Controllers\ResponseController.cs" />
     <Compile Include="Controllers\SurveyController.cs" />
+    <Compile Include="Filters\AuthorizeResponseAttribute.cs" />
+    <Compile Include="Filters\AuthorizeSurvey.cs" />
     <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

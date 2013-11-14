@@ -99,7 +99,7 @@ namespace SurveyApp.Controllers
 
         //
         // GET: /Response/Edit/5
-        [Authorize]
+        [AuthorizeResponse]
         public ActionResult Edit(string uniqueid)
         {
             ViewBag.uniqueid = uniqueid;
@@ -115,7 +115,7 @@ namespace SurveyApp.Controllers
 
         //
         // POST: /Response/Edit/5
-        [Authorize]
+        [AuthorizeResponse]
         [HttpPost]
         public ActionResult Edit(List<Response> responses, string uniqueid)
         {
@@ -138,7 +138,7 @@ namespace SurveyApp.Controllers
 
         //
         // GET: /Response/Delete/5
-        [Authorize]
+        [AuthorizeResponse]
         public ActionResult Delete(string uniqueid)
         {
             return View();
@@ -146,7 +146,7 @@ namespace SurveyApp.Controllers
 
         //
         // POST: /Response/Delete/5
-        [Authorize]
+        [AuthorizeResponse]
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(string uniqueid)
         {

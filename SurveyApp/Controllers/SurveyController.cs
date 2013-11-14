@@ -7,6 +7,8 @@ using System.Web;
 using System.Web.Mvc;
 using SurveyApp.Models;
 using WebMatrix.WebData;
+using System.Text;
+using SurveyApp.Filters;
 
 namespace SurveyApp.Controllers
 {
@@ -48,6 +50,7 @@ namespace SurveyApp.Controllers
         {
             Survey survey = db.Surveys.Include(q => q.Questions).FirstOrDefault(q => q.SurveyId == id);
             ViewBag.survey = survey.Title;
+            ViewBag.surveyid = survey.SurveyId;
             ViewBag.Questions = survey.Questions;
             var responses = new List<Response>();
             foreach (var r in db.Responses.Include(r => r.Question).Include(r => r.User).Include(r => r.Question.Survey).ToList())
@@ -79,12 +82,67 @@ namespace SurveyApp.Controllers
             {
                 responses_dict[r.UniqueId].Add(r);
             }
+
             if (survey == null)
             {
                 return HttpNotFound();
             }
+
             ViewBag.Responders = responders;
+
             return View(responses_dict);
+        }
+
+        public ActionResult Export(int id = 0)
+        {
+            Survey survey = db.Surveys.Include(q => q.Questions).FirstOrDefault(q => q.SurveyId == id);
+            ViewBag.survey = survey.Title;
+            var responses = new List<Response>();
+            foreach (var r in db.Responses.Include(r => r.Question).Include(r => r.User).Include(r => r.Question.Survey).ToList())
+            {
+                if (r.Question.SurveyId == id)
+                {
+                    responses.Add(r);
+                }
+            }
+            var responses_dict = new Dictionary<string, List<Response>>();
+            var responders = new Dictionary<string, string>();
+
+            var uid_list = new List<string>();
+            foreach (var r in responses)
+            {
+                if (!uid_list.Contains(r.UniqueId))
+                {
+                    uid_list.Add(r.UniqueId);
+                }
+            }
+
+            foreach (var uid in uid_list)
+            {
+                responses_dict.Add(uid, new List<Response>());
+                responders.Add(uid, responses.FirstOrDefault(uniqueid => uniqueid.UniqueId == uid).User.UserName);
+            }
+
+            foreach (var r in responses)
+            {
+                responses_dict[r.UniqueId].Add(r);
+            }
+            var sb = new StringBuilder();
+            var header = "Uniqueid,User,";
+            var counter = 1;
+            foreach (var q in survey.Questions) { if (q.options == 0) { header = header + q.Text + ","; } else { header = header + string.Format("Q {0},", counter); counter++; } }
+            sb.AppendLine(header);
+            foreach (var node in responses_dict)
+            {
+                var line = node.Key + "," + node.Value.First().User.UserName + ",";
+                foreach (var r in node.Value)
+                {
+                    if (r.Question.options == 0) { line = line + r.Text + ","; }
+                    else { line = line + r.Value.ToString() + ","; }
+                }
+                sb.AppendLine(line);
+            }
+            return this.File(new UTF8Encoding().GetBytes(sb.ToString()), "text/csv", string.Format("Summary-{0}.csv",ViewBag.survey));
         }
 
         //
@@ -106,7 +164,7 @@ namespace SurveyApp.Controllers
 
         //
         // GET: /Survey/Edit/5
-        [Authorize]
+        [AuthorizeSurvey]
         public ActionResult Edit(int id = 0)
         {
             Survey survey = db.Surveys.Find(id);
@@ -119,12 +177,15 @@ namespace SurveyApp.Controllers
 
         //
         // POST: /Survey/Edit/5
-        [Authorize]
+        [AuthorizeSurvey]
         [HttpPost]
-        public ActionResult Edit(Survey survey)
+        public ActionResult Edit(Survey survey, int id = 0)
         {
+            survey = db.Surveys.Find(id);
+            var creatorid = survey.CreatorId;
             if (ModelState.IsValid)
             {
+                survey.CreatorId = creatorid;
                 db.Entry(survey).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -134,7 +195,7 @@ namespace SurveyApp.Controllers
 
         //
         // GET: /Survey/Delete/5
-        [Authorize]
+        [AuthorizeSurvey]
         public ActionResult Delete(int id = 0)
         {
             Survey survey = db.Surveys.Find(id);
@@ -147,7 +208,7 @@ namespace SurveyApp.Controllers
 
         //
         // POST: /Survey/Delete/5
-        [Authorize]
+        [AuthorizeSurvey]
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(int id)
         {
