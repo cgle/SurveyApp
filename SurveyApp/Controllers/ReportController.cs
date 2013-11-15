@@ -58,7 +58,7 @@ namespace SurveyApp.Controllers
             {
                 if (!output_dict.Keys.Contains(node.Key))
                 {
-                    output_dict.Add(node.Key, new List<object>(new object[] {responses_uniqueid.FirstOrDefault(q => q.Question.Text == node.Key).Value, double.Parse(meanScore(node.Value).ToString("#.##")), medianScore(node.Value)} ));
+                    output_dict.Add(node.Key, new List<object>(new object[] {responses_uniqueid.FirstOrDefault(q => q.Question.Text == node.Key).Value, meanScore(node.Value), medianScore(node.Value)} ));
                 }
 
                 
