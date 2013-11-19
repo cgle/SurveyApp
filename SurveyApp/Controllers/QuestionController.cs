@@ -103,6 +103,7 @@ namespace SurveyApp.Controllers
             {
                 question.Text = Request.Form["Text"];
                 question.options = Convert.ToInt16(Request.Form["options"]);
+                question.QuestionType = Convert.ToInt16(Request.Form["QuestionType"]);
                 question.Instructions = Request.Form["Instructions"];
                 db.Questions.Attach(question);
                 db.Entry(question).State = EntityState.Modified;

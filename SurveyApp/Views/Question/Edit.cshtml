@@ -36,6 +36,13 @@
             @Html.ValidationMessageFor(model => model.options)
         </div>
         <div class="editor-label">
+            @Html.LabelFor(model => model.QuestionType)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.QuestionType)
+            @Html.ValidationMessageFor(model => model.QuestionType)
+        </div>
+        <div class="editor-label">
             Enter option instructions, separate by comma
         </div>
         <div class="editor-field">

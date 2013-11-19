@@ -34,7 +34,7 @@ namespace SurveyApp.Controllers
                 }
             }
             var pagenumber = page ?? 1;
-            var onepageofResponses = responses.ToPagedList(pagenumber, 10);
+            var onepageofResponses = responses.ToPagedList(pagenumber, 20);
             return View(onepageofResponses);
         }
 
