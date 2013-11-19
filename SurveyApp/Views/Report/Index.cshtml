@@ -1,5 +1,6 @@
 ﻿@model IEnumerable<SurveyApp.Models.Response>
-
+@using PagedList.Mvc;
+@using PagedList;
 @{
     ViewBag.Title = "Report";
 }
@@ -12,8 +13,7 @@
         <table class="table table-striped table-bordered">
             <tr>
                 <th>Responses available</th>
-                <th></th>
-                <th></th>
+                <th colspan="2"></th>
             </tr>
             <tr>
                 <th>
@@ -41,7 +41,7 @@
     @{ var counter = 1;}
     <div class="col-md-8">
         <div class="panel panel-group panel-default" style="padding: 15px;" id="accordion">
-            @foreach (var s in ViewBag.surveys)
+            @foreach (var s in ViewBag.onepageofSurveys)
             {
                 <div class="panel panel-default">
                     <div class="panel-heading">
@@ -84,7 +84,7 @@
             }
 
         </div>
-
+        @Html.PagedListPager((IPagedList)ViewBag.onepageofSurveys, page => Url.Action("Index", new { page }))
     </div>
 
 </div>

@@ -7,6 +7,8 @@ using System.Web;
 using System.Web.Mvc;
 using SurveyApp.Models;
 using WebMatrix.WebData;
+using PagedList;
+
 using SurveyApp.Filters;
 
 namespace SurveyApp.Controllers
@@ -17,7 +19,7 @@ namespace SurveyApp.Controllers
         // GET: /Report/
         private SurveyEntities db = new SurveyEntities();
 
-        public ActionResult Index()
+        public ActionResult Index(int? page)
         {
             var responses = new List<Response>();
             var uid = new List<string>();
@@ -30,6 +32,8 @@ namespace SurveyApp.Controllers
                 }
             }
             ViewBag.surveys = db.Surveys.Include(q => q.Questions).ToList();
+            var pagenumber = page ?? 1;
+            ViewBag.onepageofSurveys = db.Surveys.Include(q => q.Questions).ToList().ToPagedList(pagenumber, 10);
             return View(responses);
         }
 
