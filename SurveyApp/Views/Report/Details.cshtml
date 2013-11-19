@@ -2,6 +2,7 @@
 
 @{
     ViewBag.Title = "Report Details";
+    var pixel = Model.Count * 35;
 }
 
 @section script{
@@ -14,7 +15,7 @@
             var options = {
                 title: 'Compare to other respondents',
                 vAxis: { title: 'Questions', titleTextStyle: { color: 'red' } },
-                chartArea: { top: 0, height: '100%'}
+                chartArea: { top: 0, height: '100%' }
             };
 
             var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
@@ -24,7 +25,7 @@
 }
 
 <h2>Report details: @ViewBag.uniqueid</h2>
-<div id="chart_div" style="width: 900px; height:100%; min-height: 500px !important; margin-top:20px;"></div>
+<div id="chart_div" style="width: 900px; min-height:@(pixel)px; margin-top:20px;"></div>
 
 
 

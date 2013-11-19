@@ -1,8 +1,14 @@
 ﻿@model IEnumerable<SurveyApp.Models.Response>
 @using System.Linq
-
+@using PagedList.Mvc;
+@using PagedList;
 @{
     ViewBag.Title = "Take a survey";
+}
+
+@section script{
+    <script>
+    </script>
 }
 
 <h2>Response: @ViewBag.Survey.Title</h2>
@@ -53,8 +59,8 @@
                         <br />
                         <br />
                     }
-
                 </div>
+
                 <br />
                 <p>
                     <input type="submit" value="Take" class="btn btn-primary" />

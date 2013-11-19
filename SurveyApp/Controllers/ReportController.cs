@@ -65,10 +65,12 @@ namespace SurveyApp.Controllers
             }
 
             var data = new List<List<object>>();
+            var counter = 0;
             foreach (var item in output_dict)
             {
                 var k = new List<object>();
-                k.Add(item.Key);
+                k.Add("Q"+counter.ToString());
+                counter++;
                 foreach (var i in item.Value) { k.Add(i); }
                 data.Add(k);
 

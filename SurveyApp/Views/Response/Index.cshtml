@@ -3,6 +3,8 @@
 @{
     ViewBag.Title = "Responses";
 }
+@using PagedList.Mvc;
+@using PagedList;
 
 <h2>Responses page</h2>
 <br />
@@ -64,5 +66,8 @@
 
             </table>
         </div>
+        @Html.PagedListPager( (IPagedList)Model, page => Url.Action("Index", new { page }) )
     </div>
 </div>
+
+

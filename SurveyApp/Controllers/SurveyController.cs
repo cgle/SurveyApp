@@ -8,6 +8,7 @@ using System.Web.Mvc;
 using SurveyApp.Models;
 using WebMatrix.WebData;
 using System.Text;
+using PagedList;
 using SurveyApp.Filters;
 
 namespace SurveyApp.Controllers
@@ -19,9 +20,11 @@ namespace SurveyApp.Controllers
         //
         // GET: /Survey/
 
-        public ActionResult Index()
+        public ActionResult Index(int? page)
         {
-            return View(db.Surveys.Include(q => q.Questions).ToList());
+            var pagenumber = page ?? 1;
+            var surveys = db.Surveys.Include(q => q.Questions).ToList().ToPagedList(pagenumber, 10);
+            return View(surveys);
         }
 
         //
