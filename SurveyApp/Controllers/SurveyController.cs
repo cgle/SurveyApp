@@ -133,14 +133,15 @@ namespace SurveyApp.Controllers
             var sb = new StringBuilder();
             var header = "Uniqueid,User,";
             var counter = 1;
-            foreach (var q in survey.Questions) { if (q.options == 0) { header = header + q.Text + ","; } else { header = header + string.Format("Q {0},", counter); counter++; } }
+            foreach (var q in survey.Questions) { if (q.QuestionType == 0) { header = header + q.Text + ","; } else { header = header + string.Format("Q {0},", counter); counter++; } }
             sb.AppendLine(header);
             foreach (var node in responses_dict)
             {
                 var line = node.Key + "," + node.Value.First().User.UserName + ",";
                 foreach (var r in node.Value)
                 {
-                    if (r.Question.options == 0) { line = line + r.Text + ","; }
+                    if (r.Question.QuestionType == 0) { line = line + r.Text + ","; }
+                    else if (r.Question.QuestionType == 2) { line = line + string.Join(";",r.Text.Split(',').ToArray()) + ","; }
                     else { line = line + r.Value.ToString() + ","; }
                 }
                 sb.AppendLine(line);

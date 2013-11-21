@@ -63,7 +63,7 @@
         @{var counter = 1;}
         @foreach (var q in ViewBag.Questions)
         {
-            if (q.options == 0)
+            if (q.QuestionType == 0)
             {
                 <th>@q.Text</th>
             }
@@ -87,7 +87,7 @@
             </td>
             @foreach (var r in pack.Value)
             {
-                if (r.Question.options == 0)
+                if (r.Question.QuestionType == 0 || r.Question.QuestionType == 2)
                 {
                 <td>
                     @r.Text

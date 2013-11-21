@@ -196,10 +196,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201311141604500_migration1.cs" />
-    <Compile Include="Migrations\201311141604500_migration1.Designer.cs">
-      <DependentUpon>201311141604500_migration1.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\201311192050390_migration2.cs" />
     <Compile Include="Migrations\201311192050390_migration2.Designer.cs">
       <DependentUpon>201311192050390_migration2.cs</DependentUpon>
@@ -361,9 +357,6 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201311141604500_migration1.resx">
-      <DependentUpon>201311141604500_migration1.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201311192050390_migration2.resx">
       <DependentUpon>201311192050390_migration2.cs</DependentUpon>
     </EmbeddedResource>

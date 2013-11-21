@@ -48,7 +48,7 @@ namespace SurveyApp.Controllers
 
             foreach (var r in responses)
             {
-                if (r.Question.options != 0)
+                if (r.Question.QuestionType != 0 && r.Question.QuestionType != 2)
                 {
                     if (!question_dict.Keys.Contains(r.Question.Text))
                     {

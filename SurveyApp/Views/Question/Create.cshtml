@@ -6,10 +6,15 @@
 
 <h2>Create new question</h2>
 <br />
-<p class="jumbotron" style="font-size:medium; padding:17px">
-    Note: Options value will determine the type of this question in your survey. Value 0 means text question. You can choose value larger than 1 
-    to specifize how many options your question will have.
-</p>
+<div class="jumbotron" style="font-size:medium; padding:17px">
+    <p>Note: Options are the number of choices. By default, question is text-based. Question types:</p>
+    <ul>
+        <li>0: Text (set options to be 0)</li>
+        <li>1: Radio box (accept 1 option)</li>
+        <li>2: Checked box (accept multiple options)</li>
+        <li>3: Slider question (options are levels of the slider)</li>
+    </ul>
+</div>
 
 @using (Html.BeginForm()) {
     @Html.ValidationSummary(true)

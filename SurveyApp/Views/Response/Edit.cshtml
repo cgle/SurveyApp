@@ -10,7 +10,7 @@
     <div class="col-md-3">
         @if (ViewBag.Survey.Tips != "" || ViewBag.Survey.Tips != null)
         {
-            <div class="jumbotron" style="font-size: 15px; width:250px; padding: 15px; position: fixed">
+            <div class="jumbotron" style="font-size: 15px; width: 250px; padding: 15px; position: fixed">
                 @ViewBag.Survey.Tips
             </div>
         }
@@ -23,24 +23,116 @@
             {
             <b>@r.Question.Text</b>
             <br />
-                if (r.Question.options == 0)
+                int type = r.Question.QuestionType;
+                string color = "success";
+                int qid = r.Question.QuestionId;
+                switch (qid % 4)
                 {
-                    { <input type="text" name="question_@r.QuestionId" id="question_@r.QuestionId" value="@r.Text"/> }
+                    case 1:
+                        color = "danger";
+                        break;
+                    case 2:
+                        color = "info";
+                        break;
+                    case 3:
+                        color = "warning";
+                        break;
                 }
-                else
+                switch (type)
                 {
-                    for (int i = 1; i <= r.Question.options; i++)
-                    {
-                        if (r.Value == i)
+                    case 0:
+            <input type="text" name="question_@r.QuestionId" id="question_@r.QuestionId" value="@r.Text"/> 
+                        break;
+                    case 1:
+                        if (!string.IsNullOrEmpty(r.Question.Instructions))
                         {
-            @i <input style="width:20px; text-align:left;" type="radio" name="question_@r.QuestionId" id="question_@r.QuestionId" value="@i" checked="checked" /> @:&nbsp;&nbsp;&nbsp;
-                }
+                            string[] choices = r.Question.Instructions.Split(',');
+                            for (int i = 1; i <= r.Question.options; i++)
+                            {
+                                if (r.Value == i)
+                                {
+                                    @choices[i - 1] <input style="width:20px; text-align:left;" type="radio" name="question_@r.QuestionId" id="question_@r.QuestionId" value="@i" checked="checked" /> @:&nbsp;&nbsp;&nbsp;
+                                }
+                                else
+                                {
+                                    @choices[i - 1] <input style="width:20px; text-align:left;" type="radio" name="question_@r.QuestionId" id="question_@r.QuestionId" value="@i" /> @:&nbsp;&nbsp;&nbsp;
+                                }
+                            }
+                        }
                         else
                         {
-            @i <input style="width:20px; text-align:left;" type="radio" name="question_@r.QuestionId" id="question_@r.QuestionId" value="@i" /> @:&nbsp;&nbsp;&nbsp;
+                            for (int i = 1; i <= r.Question.options; i++)
+                            {
+                                if (r.Value == i)
+                                {
+                                    @i <input style="width:20px; text-align:left;" type="radio" name="question_@r.QuestionId" id="question_@r.QuestionId" value="@i" checked="checked" /> @:&nbsp;&nbsp;&nbsp;
+                                }
+                                else
+                                {
+                                    @i <input style="width:20px; text-align:left;" type="radio" name="question_@r.QuestionId" id="question_@r.QuestionId" value="@i" /> @:&nbsp;&nbsp;&nbsp;
+                                }
+                            }
+                        }
+                        break;
+                    case 2:
+                        if (!string.IsNullOrEmpty(r.Question.Instructions))
+                        {
+                            string[] choices = r.Question.Instructions.Split(',');
+                            for (int i = 1; i <= r.Question.options; i++)
+                            {
+                                if (r.Text.Split(',').ToArray().Contains(i.ToString()))
+                                {
+                                    @choices[i - 1] <input style="width:20px; text-align:left;" type="checkbox" name="question_@r.QuestionId" id="question_@r.QuestionId" value="@i" checked="checked" /> @:&nbsp;&nbsp;&nbsp;
+                                }
+                                else
+                                {
+                                    @choices[i - 1] <input style="width:20px; text-align:left;" type="checkbox" name="question_@r.QuestionId" id="question_@r.QuestionId" value="@i" /> @:&nbsp;&nbsp;&nbsp;
+                                }
+                            }
+                        }
+                        else
+                        {
+                            for (int i = 1; i <= r.Question.options; i++)
+                            {
+                                if (r.Text.Split(',').ToArray().Contains(i.ToString()))
+                                {
+                                    @i <input style="width:20px; text-align:left;" type="checkbox" name="question_@r.QuestionId" id="question_@r.QuestionId" value="@i" checked="checked" /> @:&nbsp;&nbsp;&nbsp;
+                                }
+                                else
+                                {
+                                    @i <input style="width:20px; text-align:left;" type="checkbox" name="question_@r.QuestionId" id="question_@r.QuestionId" value="@i" /> @:&nbsp;&nbsp;&nbsp;
+                                }
+                            }
+                        }
+                        break;
+                    case 3:
+                        if (!string.IsNullOrEmpty(r.Question.Instructions))
+                                {
+                                    string[] choices = r.Question.Instructions.Split(',');
+                                <div class="row">
+                                    <div class="col-md-3"><div class="btn btn-sm btn-@color">@choices[0]</div></div>
+                                    <div class="col-md-4">
+                                        <input type="hidden" id="value_@r.Question.QuestionId" name="value_@r.Question.QuestionId"/>
+                                        <div id="slider_@r.Question.QuestionId"></div>
+                                    </div>
+                                    <div class="col-md-3"><div class="btn btn-sm btn-@color">@choices[1]</div></div>
+                                </div>    
+                                }
+                                else
+                                {
+                                <div class="row">
+                                    <div class="col-md-3"><div class="btn btn-sm btn-@color">Option 1</div></div>
+                                    <div class="col-md-4">
+                                        <input type="hidden" id="value_@r.Question.QuestionId" name="value_@r.Question.QuestionId"/>
+                                        <div id="slider_@r.Question.QuestionId"></div>
+                                    </div>
+                                    <div class="col-md-3"><div class="btn btn-sm btn-@color">Option 2</div></div>
+                                </div>    
+                                }
+                        break;
+
                 }
-                    }
-                }
+               
             <br />
             <br />
             }
@@ -59,4 +151,28 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        @foreach (var r in Model )
+        {
+            if (r.Question.QuestionType == 3) {
+                int options = r.Question.options;
+                int r_value = 1;
+                if (r.Value != 0) { r_value = r.Value; }
+            <text>
+            $(function () {
+                $("#slider_@r.Question.QuestionId").slider({
+                    range: "max",
+                    min: 1,
+                    max: @options,
+                    value: @r_value,
+                    slide: function (event, ui) {
+                        $("#value_@r.Question.QuestionId").val(ui.value);
+                    }
+                });
+                $("#value_@r.Question.QuestionId").val($("#slider_@r.Question.QuestionId").slider("value"));
+            });
+            </text>
+            }
+        }
+    </script>
 }

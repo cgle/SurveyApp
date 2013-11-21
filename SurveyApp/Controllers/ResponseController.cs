@@ -91,8 +91,12 @@ namespace SurveyApp.Controllers
             if (ModelState.IsValid)
             {
                 foreach (var response in responses){
-                    if (response.Question.options == 0) { response.Text = Request.Form["question_"+response.Question.QuestionId.ToString()]; }
-                    else {response.Value = Convert.ToInt16(Request.Form["question_"+response.Question.QuestionId.ToString()]);}
+                    if (response.Question.QuestionType == 0 || response.Question.QuestionType == 2 ) { response.Text = Request.Form["question_"+response.Question.QuestionId.ToString()]; }
+                    else 
+                    {
+                        if (response.Question.QuestionType == 3) {response.Value = Convert.ToInt16(Request.Form["value_" + response.Question.QuestionId.ToString()]); }
+                        else { response.Value = Convert.ToInt16(Request.Form["question_" + response.Question.QuestionId.ToString()]); }
+                    }
                     db.Responses.Add(response);
                     db.SaveChanges();
                 }
@@ -129,8 +133,12 @@ namespace SurveyApp.Controllers
             {
                 foreach (var response in responses)
                 {
-                    if (response.Question.options == 0) { response.Text = Request.Form["question_" + response.Question.QuestionId.ToString()]; }
-                    else { response.Value = Convert.ToInt16(Request.Form["question_" + response.Question.QuestionId.ToString()]); }
+                    if (response.Question.QuestionType == 0 || response.Question.QuestionType == 2) { response.Text = Request.Form["question_" + response.Question.QuestionId.ToString()]; }
+                    else 
+                    {
+                        if (response.Question.QuestionType == 3) { response.Value = Convert.ToInt16(Request.Form["value_" + response.Question.QuestionId.ToString()]); }
+                        else { response.Value = Convert.ToInt16(Request.Form["question_" + response.Question.QuestionId.ToString()]); }
+                    }
                     db.Responses.Attach(response);
                     db.Entry(response).State = EntityState.Modified;
                     db.SaveChanges();
