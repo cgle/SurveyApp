@@ -12,6 +12,12 @@
         {
             <div class="jumbotron" style="font-size: 15px; width: 250px; padding: 15px; position: fixed">
                 @ViewBag.Survey.Tips
+                <ul style="list-style-type:none">
+                    @foreach (var h in ViewBag.Headers)
+                    {
+                        <li><a href="#header_@h.Text">@h.Text</a></li>
+                    }
+                </ul>
             </div>
         }
     </div>
@@ -21,8 +27,8 @@
             @Html.ValidationSummary(true)
             foreach (var r in Model)
             {
-            <b>@r.Question.Text</b>
-            <br />
+                <b>@r.Question.Text</b>
+                <br />
                 int type = r.Question.QuestionType;
                 string color = "success";
                 int qid = r.Question.QuestionId;
@@ -40,10 +46,17 @@
                 }
                 switch (type)
                 {
+                    case -1:
+                        <div class="jumbotron" style="font-weight:bold; padding:10px; margin-bottom:-20px;"><p id="header_@r.Question.Text" class="header_nav">@r.Question.Text</p></div>
+                        break;
                     case 0:
-            <input type="text" name="question_@r.QuestionId" id="question_@r.QuestionId" value="@r.Text"/> 
+                        <b>@r.Question.Text</b>
+                        <br />
+                        <input type="text" name="question_@r.QuestionId" id="question_@r.QuestionId" value="@r.Text" />
                         break;
                     case 1:
+                    <b>@r.Question.Text</b>
+                    <br />
                         if (!string.IsNullOrEmpty(r.Question.Instructions))
                         {
                             string[] choices = r.Question.Instructions.Split(',');
@@ -75,6 +88,8 @@
                         }
                         break;
                     case 2:
+                    <b>@r.Question.Text</b>
+                    <br />
                         if (!string.IsNullOrEmpty(r.Question.Instructions))
                         {
                             string[] choices = r.Question.Instructions.Split(',');
@@ -106,35 +121,37 @@
                         }
                         break;
                     case 3:
+                    <b>@r.Question.Text</b>
+                    <br />
                         if (!string.IsNullOrEmpty(r.Question.Instructions))
-                                {
-                                    string[] choices = r.Question.Instructions.Split(',');
-                                <div class="row">
-                                    <div class="col-md-3"><div class="btn btn-sm btn-@color">@choices[0]</div></div>
-                                    <div class="col-md-4">
-                                        <input type="hidden" id="value_@r.Question.QuestionId" name="value_@r.Question.QuestionId"/>
-                                        <div id="slider_@r.Question.QuestionId"></div>
-                                    </div>
-                                    <div class="col-md-3"><div class="btn btn-sm btn-@color">@choices[1]</div></div>
-                                </div>    
-                                }
-                                else
-                                {
-                                <div class="row">
-                                    <div class="col-md-3"><div class="btn btn-sm btn-@color">Option 1</div></div>
-                                    <div class="col-md-4">
-                                        <input type="hidden" id="value_@r.Question.QuestionId" name="value_@r.Question.QuestionId"/>
-                                        <div id="slider_@r.Question.QuestionId"></div>
-                                    </div>
-                                    <div class="col-md-3"><div class="btn btn-sm btn-@color">Option 2</div></div>
-                                </div>    
-                                }
+                        {
+                            string[] choices = r.Question.Instructions.Split(',');
+                            <div class="row">
+                                <div class="col-md-3"><div class="alert alert-@color">@choices[0]</div></div>
+                                <div class="col-md-4">
+                                    <input type="hidden" id="value_@r.Question.QuestionId" name="value_@r.Question.QuestionId" />
+                                    <div id="slider_@r.Question.QuestionId"></div>
+                                </div>
+                                <div class="col-md-3"><div class="alert alert-@color">@choices[1]</div></div>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="row">
+                                <div class="col-md-3"><div class="alert alert-@color">Option 1</div></div>
+                                <div class="col-md-4">
+                                    <input type="hidden" id="value_@r.Question.QuestionId" name="value_@r.Question.QuestionId" />
+                                    <div id="slider_@r.Question.QuestionId"></div>
+                                </div>
+                                <div class="col-md-3"><div class="alert alert-@color">Option 2</div></div>
+                            </div>
+                        }
                         break;
 
                 }
-               
-            <br />
-            <br />
+
+                <br />
+                <br />
             }
             <p>
                 <input type="submit" class="btn btn-primary" value="Save" />
@@ -159,19 +176,19 @@
                 int r_value = 1;
                 if (r.Value != 0) { r_value = r.Value; }
             <text>
-            $(function () {
-                $("#slider_@r.Question.QuestionId").slider({
-                    range: "max",
-                    min: 1,
-                    max: @options,
-                    value: @r_value,
-                    slide: function (event, ui) {
-                        $("#value_@r.Question.QuestionId").val(ui.value);
-                    }
-                });
-                $("#value_@r.Question.QuestionId").val($("#slider_@r.Question.QuestionId").slider("value"));
+        $(function () {
+            $("#slider_@r.Question.QuestionId").slider({
+                range: "max",
+                min: 1,
+                max: @options,
+                value: @r_value,
+                slide: function (event, ui) {
+                    $("#value_@r.Question.QuestionId").val(ui.value);
+                }
             });
-            </text>
+            $("#value_@r.Question.QuestionId").val($("#slider_@r.Question.QuestionId").slider("value"));
+        });
+        </text>
             }
         }
     </script>

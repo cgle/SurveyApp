@@ -12,7 +12,33 @@
 
         body {
             height:100%;
+            padding-top:65px;
         }
+
+        .header_nav {
+            padding-top: 25px;
+            margin-top: 30px;
+        }
+
+        .affix {
+            width: inherit;
+            //helped keep the content the same size on fluid layouts position: fixed;
+            top: 100px;
+            //height of the nav;
+        }
+
+        .affix-bottom {
+            width: inherit;
+            position: absolute;
+            top: auto;
+            bottom: 200px;
+            //height of the footer;
+        }
+
+        .affix-top {
+            //i didn't need this style but you might;
+        }
+
     </style>
     @Scripts.Render("~/bundles/jquery")
     <script src="/Scripts/bootstrap.js"></script>
@@ -35,7 +61,7 @@
       if (Request.RawUrl.ToString().ToLower().Contains("/report")) { re_active = "active"; } 
       if (Request.RawUrl.ToString().ToLower().Contains("/survey")) { s_active = "active"; }
     }
-    <header class="navbar navbar-default navbar-static-top">
+    <header class="navbar navbar-default navbar-fixed-top">
         <div class="container">
             <p class="navbar-brand">@Html.ActionLink("A survey application", "Index", "Home")</p>
             <ul class="nav navbar-nav" id="nav-main">

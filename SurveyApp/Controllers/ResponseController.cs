@@ -60,14 +60,15 @@ namespace SurveyApp.Controllers
             var surveys = db.Surveys.Include(q => q.Questions);
             var survey = surveys.FirstOrDefault(s => s.SurveyId == surveyid);
             var responses = new List<Response>();
+            var headers = new List<Question>();
             foreach (var q in survey.Questions)
             {
                 responses.Add(new Response { User = db.UserProfiles.Find(WebSecurity.CurrentUserId), Question = q, Value = 1});
+                if (q.QuestionType == -1) { headers.Add(q); }
             }
             ViewBag.Survey = survey;
             ViewBag.Questions = survey.Questions.ToList();
-          
-
+            ViewBag.Headers = headers;
             return View(responses);
         }
 
@@ -117,6 +118,12 @@ namespace SurveyApp.Controllers
                 return HttpNotFound();
             }
             ViewBag.Survey = responses.First().Question.Survey;
+            var headers = new List<Question>();
+            foreach (var r in responses)
+            {
+                if (r.Question.QuestionType == -1) { headers.Add(r.Question); }
+            }
+            ViewBag.Headers = headers;
         
             return View(responses);
         }

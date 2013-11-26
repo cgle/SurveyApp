@@ -9,6 +9,7 @@
 <div class="jumbotron" style="font-size:medium; padding:17px">
     <p>Note: Options are the number of choices. By default, question is text-based. Question types:</p>
     <ul>
+        <li>-1: Header (set options to be 0)</li>
         <li>0: Text (set options to be 0)</li>
         <li>1: Radio box (accept 1 option)</li>
         <li>2: Checked box (accept multiple options)</li>
@@ -46,6 +47,7 @@
         <div class="editor-label">
             <b>Enter option instructions, separate by comma</b>
         </div>
+        <div class="editor-field"></div>
         <div class="editor-field">
             @Html.EditorFor(model => model.Instructions)
             @Html.ValidationMessageFor(model => model.Instructions)
